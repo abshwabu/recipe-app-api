@@ -14,6 +14,6 @@ class TestCalc(SimpleTestCase):
         res = calc.add(5,6)
         self.assertEqual(res,11)
 
-    def test_sub(self):
-        res = calc.sub(5,6)
+    def test_subtract(self):
+        res = calc.subtract(5,6)
         self.assertEqual(res,1)
