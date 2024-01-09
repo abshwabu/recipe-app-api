@@ -3,7 +3,7 @@ Test
 '''
 from django.test import SimpleTestCase
 
-from .calc import add
+from app import calc
 
 class TestCalc(SimpleTestCase):
     """
@@ -11,5 +11,5 @@ class TestCalc(SimpleTestCase):
     """
     def test_add(self):
         """test adding number"""
-        res = add(5,6)
+        res = calc.add(5,6)
         self.assertEqual(res,11)
