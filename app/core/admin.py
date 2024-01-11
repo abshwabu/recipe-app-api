@@ -12,7 +12,7 @@ class UserAdmin(BaseUserAdmin):
     """Define the admin interface"""
     ordering = ['id']
     list_display = ['email', 'name']
-    fields = (
+    fieldsets = (
         (None, {'fields': ('email', 'name')}),
        (
             _('Permissions'),
