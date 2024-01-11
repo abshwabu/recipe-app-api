@@ -4,7 +4,7 @@ Test fo Admin
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.test import client
+from django.test import Client
 
 
 class AdminTest(TestCase):
@@ -12,7 +12,7 @@ class AdminTest(TestCase):
 
     def setUp(self):
         """Create user and client"""
-        self.client = client()
+        self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
             email='admin@example.com',
             password='testpassword123',
