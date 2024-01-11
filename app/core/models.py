@@ -16,10 +16,10 @@ class UserManager(BaseUserManager):
         """Create, Save, and Return a new User"""
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.save(using=self.db)
+        user.save(using=self._db)
 
         return user
-    
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the System"""
