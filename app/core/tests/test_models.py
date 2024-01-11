@@ -16,6 +16,6 @@ class ModelTest(TestCase):
             email = email,
             password = password
         )
+
         self.assertEqual(user.email, email)
         self.assertEqual(user.check_password(password))
-        
