@@ -125,7 +125,7 @@ class PrivetUserApiTest(TestCase):
         """Test retrieving profile for logged in user."""
         res = self.client.get(ME_URL)
 
-        self.assertEqual(res.status, status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, {
             'name': self.user.name,
             'email': self.user.email
@@ -135,7 +135,7 @@ class PrivetUserApiTest(TestCase):
         """Test POST request is not allowed for me endpoint."""
         res = self.client.post(ME_URL, {})
 
-        self.assertEqual(res.status, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_update_user_profile(self):
         """Test update user profile."""
