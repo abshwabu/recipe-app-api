@@ -110,3 +110,13 @@ class PublicUserApiTest(TestCase):
 
 class PrivetUserApiTest(TestCase):
     """Test API requests that require authentication."""
+
+    def setUp(self):
+        self.user = create_user(
+            email='test@example.com',
+            password='testpass123',
+            name='Test Name',
+        )
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
+        
