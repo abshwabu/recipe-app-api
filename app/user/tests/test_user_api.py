@@ -95,6 +95,7 @@ class PublicUserApiTest(TestCase):
 
     def test_create_token_blank_password(self):
         """Test posting blank password returns error."""
+
         payload = {'email': 'test@example.com', 'password': ''}
         res = self.client.post(TOKEN_URL, payload)
 
@@ -130,3 +131,10 @@ class PrivetUserApiTest(TestCase):
             'email': self.user.email
         })
 
+    def test_post_me_not_allowed(self):
+        """Test POST request is not allowed for me endpoint."""
+        res = self.client.post(ME_URL, {})
+
+        self.assertEqual(res.status, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    
