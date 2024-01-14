@@ -33,3 +33,5 @@ def create_recipe(user, **params):
 class PublicRecipeApiTests(TestCase):
     """Test unauthorized API requests."""
 
+    def setUp(self):
+        self.client = APIClient()
