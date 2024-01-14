@@ -28,3 +28,8 @@ def create_recipe(user, **params):
 
     recipe = Recipe.objects.create(user=user, **defaults)
     return recipe
+
+
+class PublicRecipeApiTests(TestCase):
+    """Test unauthorized API requests."""
+
