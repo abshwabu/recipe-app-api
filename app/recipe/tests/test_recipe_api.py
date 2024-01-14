@@ -46,4 +46,13 @@ class PublicRecipeApiTests(TestCase):
 
 class PrivateRecipeApiTest(TestCase):
     """Test authorized API requests."""
-    
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = get_user_model().objects.create_user(
+            'user@example.com',
+            'testpass123',
+        )
+        self.client.force_authenticate(self.user)
+
+        
