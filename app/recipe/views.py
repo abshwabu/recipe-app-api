@@ -16,4 +16,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    
+    def get_queryset(self):
+        """Retrieve recipes for authenticated users."""
+        return self.queryset.filter(user=self.request.user)
