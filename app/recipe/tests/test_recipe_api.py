@@ -16,6 +16,7 @@ from recipe.serializers import RecipeSerializer
 
 RECIPE_URL = reverse('recipe:recipe-list')
 
+
 def create_recipe(user, **params):
     """Create and return a sample recipe."""
     defaults = {
@@ -23,7 +24,7 @@ def create_recipe(user, **params):
         'time_minutes': 22,
         'price': Decimal('5.50'),
         'description': 'sample recipe description',
-        'link':'http://example.com/recipe.pdf',
+        'link': 'http://example.com/recipe.pdf',
     }
     defaults.update(params)
 
