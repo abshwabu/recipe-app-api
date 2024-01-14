@@ -14,6 +14,7 @@ from core.models import Recipe
 
 from recipe.serializers import RecipeSerializer
 
+RECIPE_URL = 'recipe:recipe-list'
 
 def create_recipe(user, **params):
     """Create and return a sample recipe."""
@@ -35,3 +36,14 @@ class PublicRecipeApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
+
+    def test_auth_required(self):
+        """Test auth is required to call API."""
+        res = self.client.get(RECIPE_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateRecipeApiTest(TestCase):
+    """Test authorized API requests."""
+    
