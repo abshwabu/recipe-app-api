@@ -75,7 +75,7 @@ class PrivateTagsTests(TestCase):
         """Test updating a tag."""
         tag = Tag.objects.create(user=self.user, name='After Diner')
 
-        payload = {'name':'Dessert'}
+        payload = {'name': 'Dessert'}
         url = detail_url(tag.id)
         res = self.client.patch(url, payload)
 
