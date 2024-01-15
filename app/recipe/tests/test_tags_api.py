@@ -18,3 +18,12 @@ TAG_URL = reverse('recipe:tag-list')
 def create_user(**params):
     """Create a new user."""
     return get_user_model().objects.create_user(**params)
+
+
+class PublicTagsApi(TestCase):
+    """Test unauthenticated API requests."""
+
+    def setUp(self):
+        self.client = APIClient()
+
+    
