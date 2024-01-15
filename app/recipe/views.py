@@ -38,3 +38,7 @@ class TagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Tag.objects.all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """Filter queryset to authenticated users."""
+        return self.queryset.filter(user=self.request.user).order_by("-name")
