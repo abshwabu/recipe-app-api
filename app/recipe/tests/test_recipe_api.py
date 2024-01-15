@@ -35,6 +35,10 @@ def create_recipe(user, **params):
     recipe = Recipe.objects.create(user=user, **defaults)
     return recipe
 
+def create_user(**params):
+    """Create a new user."""
+    return get_user_model().objects.create_user(**params)
+
 
 class PublicRecipeApiTests(TestCase):
     """Test unauthorized API requests."""
