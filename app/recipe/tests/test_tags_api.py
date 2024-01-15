@@ -20,7 +20,7 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-class PublicTagsApi(TestCase):
+class PublicTagsApiTests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
@@ -31,3 +31,12 @@ class PublicTagsApi(TestCase):
         res = self.client.get(TAG_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateTagsTests(TestCase):
+    """Test authenticated API requests."""
+
+    def setUp(self):
+        self.user = create_user()
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
