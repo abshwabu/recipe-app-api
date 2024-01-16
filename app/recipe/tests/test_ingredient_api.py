@@ -31,3 +31,12 @@ class PublicIngredientApiTests(TestCase):
         res = self.client.get(INGREDIENT_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateTagsTests(TestCase):
+    """Test authenticated API requests."""
+
+    def setUp(self):
+        self.user = create_user()
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
