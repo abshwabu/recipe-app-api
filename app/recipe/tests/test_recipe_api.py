@@ -253,7 +253,7 @@ class PrivateRecipeApiTest(TestCase):
         """Test assigning existing tags when updating a recipe."""
         tag_breakfast = Tag.objects.create(user=self.user, name='Breakfast')
         recipe = create_recipe(user=self.user)
-        recipe.tags.aadd(tag_breakfast)
+        recipe.tags.add(tag_breakfast)
 
         tag_lunch = Tag.objects.create(user=self.user, name='Lunch')
         payload = {'tags': [{'name': 'Lunch'}]}
@@ -268,7 +268,7 @@ class PrivateRecipeApiTest(TestCase):
         """Test clearing a recipe tag."""
         tag = Tag.objects.create(user=self.user, name='Dessert')
         recipe = create_recipe(user=self.user)
-        recipe.tags.aadd(tag)
+        recipe.tags.add(tag)
 
         payload = {'tags': []}
         url = detail_url(recipe.id)
