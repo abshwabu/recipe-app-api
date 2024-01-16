@@ -85,7 +85,7 @@ class PrivateIngredientsTests(TestCase):
 
     def test_delete_ingredient(self):
         """Tests deleting a ingredient"""
-        ingredient = Ingredient.objects.create(user=self.user, name='Breakfast')
+        ingredient = Ingredient.objects.create(user=self.user, name='Lettuce')
 
         url = detail_url(ingredient.id)
         res = self.client.delete(url)
