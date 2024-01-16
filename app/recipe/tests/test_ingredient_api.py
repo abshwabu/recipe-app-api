@@ -33,10 +33,22 @@ class PublicIngredientApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateTagsTests(TestCase):
+class PrivateIngredientsTests(TestCase):
     """Test authenticated API requests."""
 
     def setUp(self):
         self.user = create_user()
         self.client = APIClient()
         self.client.force_authenticate(self.user)
+
+    def test_retrieve_Ingredients(self):
+        """Test retrieving a list of Ingredients."""
+        Ingredient.objects.create(user=self.user, name='Vegan')
+        Ingredient.objects.create(user=self.user, name='Dessert')
+
+        res = self.client.get(INGREDIENT_URL)
+
+        Ingredients = Ingredient.objects.all().order_by('-name')
+        serializer = IngredientSerializer(Ingredients, many=True)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)
