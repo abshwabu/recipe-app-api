@@ -1,12 +1,12 @@
 """
 Views for the recipe API.
 """
-# from drf_spectacular.utils import (
-#     extend_schema_view,
-#     extend_schema,
-#     OpenAPIParameter,
-#     OpenAPITypes,
-# )
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -16,6 +16,23 @@ from rest_framework.permissions import IsAuthenticated
 from core.models import Recipe, Tag, Ingredient
 from recipe import serializers
 
+
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'tags',
+                OpenApiTypes.STR,
+                description='coma separated list of ids to filter',
+                ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='coma separated list of ids to filter',
+                )
+        ]
+    )
+)
 
 class RecipeViewSet(viewsets.ModelViewSet):
     """View for manage recipe API."""
