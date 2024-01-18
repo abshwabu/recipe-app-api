@@ -383,6 +383,9 @@ class PrivateRecipeApiTest(TestCase):
         r2.tags.add(tag2)
         r3 = create_recipe(user=self.user, title='Fish and Chips')
 
+        params = {'tags': f'{tag1.id}, {tag2.id}'}
+        res = self.client.get(RECIPE_URL, params)
+
 
 
 class ImageUploadTest(TestCase):
