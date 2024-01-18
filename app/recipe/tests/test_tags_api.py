@@ -98,8 +98,8 @@ class PrivateTagsTests(TestCase):
 
     def test_filter_tags_assigned_to_recipe(self):
         """Test listing tags that have been assigned to a recipe."""
-        tag1 = Tag.objects.create(user=self.user, name='Apple')
-        tag2 = Tag.objects.create(user=self.user, name='Turkey')
+        tag1 = Tag.objects.create(user=self.user, name='Sweet')
+        tag2 = Tag.objects.create(user=self.user, name='Healthy')
         recipe = Recipe.objects.create(
             title='Apple Pie',
             time_minutes=60,
@@ -117,8 +117,8 @@ class PrivateTagsTests(TestCase):
 
     def test_filtered_tags_unique(self):
         """Test filtered tags are unique"""
-        ing1 = Tag.objects.create(user=self.user, name='Apple')
-        Tag.objects.create(user=self.user, name='Turkey')
+        ing1 = Tag.objects.create(user=self.user, name='Dessert')
+        Tag.objects.create(user=self.user, name='Lunch')
         recipe1 = Recipe.objects.create(
             title='Apple Pie',
             time_minutes=60,
