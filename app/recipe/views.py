@@ -1,12 +1,12 @@
 """
 Views for the recipe API.
 """
-from drf_spectacular.utils import (
-    extend_schema_view,
-    extend_schema,
-    OpenAPIParameter,
-    OpenAPITypes,
-)
+# from drf_spectacular.utils import (
+#     extend_schema_view,
+#     extend_schema,
+#     OpenAPIParameter,
+#     OpenAPITypes,
+# )
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -35,14 +35,14 @@ class RecipeViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         if tags:
             tag_ids = self._params_to_ints(tags)
-            queryset = queryset.filter(tag__ids__in=tag_ids)
+            queryset = queryset.filter(tags__id__in=tag_ids)
         if ingredients:
             ingredient_ids = self._params_to_ints(ingredients)
-            queryset = queryset.filter(ingredient__ids__in=ingredient_ids)
+            queryset = queryset.filter(ingredients__id__in=ingredient_ids)
 
         return queryset.filter(
-            user=self.user,
-        ).order_by('id').distinct()
+            user=self.request.user,
+        ).order_by('-id').distinct()
 
     def get_serializer_class(self):
         """Get the serializer class."""
