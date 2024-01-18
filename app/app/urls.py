@@ -33,3 +33,9 @@ urlpatterns = [
     path("api/user/", include("user.urls")),
     path("api/recipe/", include("recipe.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_url=settings.MEDIA_ROOT
+    )
