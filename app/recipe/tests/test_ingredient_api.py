@@ -115,4 +115,25 @@ class PrivateIngredientsTests(TestCase):
         self.assertIn(s1.data, res.data)
         self.assertNotIn(s2.data, res.data)
 
-    
+    def test_filtered_ingredients_unique(self):
+        """Test filtered ingredients are unique"""
+        ing1 = Ingredient.objects.create(user=self.user, name='Apple')
+        Ingredient.objects.create(user=self.user, name='Turkey')
+        recipe1 = Recipe.objects.create(
+            title='Apple Pie',
+            time_minutes=60,
+            price=Decimal('10.00'),
+            user=self.user,
+        )
+        recipe2 = Recipe.objects.create(
+            title='Apple crumbs',
+            time_minutes=60,
+            price=Decimal('10.00'),
+            user=self.user,
+        )
+        recipe1.ingredients.add(ing1)
+        recipe2.ingredients.add(ing1)
+
+        res = self.client.get(INGREDIENT_URL, {'assigned_only': 1})
+
+        self.assertEqual(len(res.data), 1)
