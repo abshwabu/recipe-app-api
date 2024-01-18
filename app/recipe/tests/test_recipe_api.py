@@ -347,18 +347,18 @@ class PrivateRecipeApiTest(TestCase):
 
     def test_update_recipe_assign_ingredients(self):
         """Test assigning existing ingredients when updating a recipe."""
-        ingredient1 = Ingredient.objects.create(user=self.user, name='Pepper')
+        ing1 = Ingredient.objects.create(user=self.user, name='Pepper')
         recipe = create_recipe(user=self.user)
-        recipe.ingredients.add(ingredient1)
+        recipe.ingredients.add(ing1)
 
-        ingredient2 = Ingredient.objects.create(user=self.user, name='Salt')
+        ing2 = Ingredient.objects.create(user=self.user, name='Salt')
         payload = {'ingredients': [{'name': 'Salt'}]}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format='json')
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertIn(ingredient2, recipe.ingredients.all())
-        self.assertNotIn(ingredient1, recipe.ingredients.all())
+        self.assertIn(ing2, recipe.ingredients.all())
+        self.assertNotIn(ing1, recipe.ingredients.all())
 
     def test_clear_recipe_ingredients(self):
         """Test clearing a recipe ingredient."""
@@ -397,13 +397,13 @@ class PrivateRecipeApiTest(TestCase):
         """Test filtering recipe by ingredients"""
         r1 = create_recipe(user=self.user, title='Posh Bean on Toast')
         r2 = create_recipe(user=self.user, title='Chicken Cacciatore')
-        ingredient1 = Ingredient.objects.create(user=self.user, name='Feta Cheese')
-        ingredient2 = Ingredient.objects.create(user=self.user, name='Chicken')
-        r1.ingredients.add(ingredient1)
-        r2.ingredients.add(ingredient2)
+        ing1 = Ingredient.objects.create(user=self.user, name='Feta Cheese')
+        ing2 = Ingredient.objects.create(user=self.user, name='Chicken')
+        r1.ingredients.add(ing1)
+        r2.ingredients.add(ing2)
         r3 = create_recipe(user=self.user, title='Fish and Chips')
 
-        params = {'ingredients': f'{ingredient1.id}, {ingredient2.id}'}
+        params = {'ingredients': f'{ing1.id}, {ing2.id}'}
         res = self.client.get(RECIPE_URL, params)
 
         s1 = RecipeSerializer(r1)
@@ -412,7 +412,6 @@ class PrivateRecipeApiTest(TestCase):
         self.assertIn(s1.data, res.data)
         self.assertIn(s2.data, res.data)
         self.assertNotIn(s3.data, res.data)
-
 
 
 class ImageUploadTest(TestCase):
