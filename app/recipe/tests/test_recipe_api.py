@@ -386,6 +386,13 @@ class PrivateRecipeApiTest(TestCase):
         params = {'tags': f'{tag1.id}, {tag2.id}'}
         res = self.client.get(RECIPE_URL, params)
 
+        s1 = RecipeSerializer(r1)
+        s2 = RecipeSerializer(r2)
+        s3 = RecipeSerializer(r3)
+        self.assertIn(s1.data, res.data)
+        self.assertIn(s2.data, res.data)
+        self.assertNotIn(s3.data, res.data)
+
 
 
 class ImageUploadTest(TestCase):
